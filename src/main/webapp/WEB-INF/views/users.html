@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="script.js"></script>
+
+    <title>Users</title>
+    <style>
+        .add {
+            margin-top: 111px;
+            margin-bottom: 5px;
+        }
+
+        .edit {
+            margin-top: 30px;
+            margin-bottom: 5px;
+        }
+
+        .list {
+            margin-bottom: -5px;
+        }
+        .element {
+
+        }
+    </style>
+</head>
+<body>
+<div align="center" class="add">
+    <table>
+        <tbody>
+        <tr>
+            <td><input id="add" onclick="createNewUser()" type="submit" value="Add new"></td>
+            <form th:action="@{/users}" th:method="post" th:object="${newUser}">
+                <td><input disabled th:id="name" type="text" placeholder="Name" size="4" th:field="*{name}" ></td>
+                <td><input disabled th:id="surname" type="text" placeholder="Surname" size="4" th:field="*{surname}"></td>
+                <td><input disabled th:id="age" type="text" placeholder="Age" size="1" th:field="*{age}"></td>
+                <td><input disabled th:id="email" type="text" placeholder="E-mail" size="25" th:field="*{email}"></td>
+                <td><input id="clear" disabled type="reset" value="Clear"/></td>
+                <td><input id="create" disabled type="submit" value="Create"/></td>
+            </form>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="edit" align="center">
+    <table>
+        <tbody>
+        <tr>
+            <td>
+                <button id="edit" onclick="edit()">Edit</button>
+            </td>
+            <td>
+                <button disabled id="pause" onclick="pause()">Pause</button>
+            </td>
+            <td>
+                <form target="_blank" method="get" th:action="@{/users/list}">
+                    <input type="submit" value="Copy">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="list" align="center" >
+    <table>
+        <tbody>
+        <tr th:each="user: ${listUsers}">
+            <form th:action="@{/users/{id} (id=${user.getId()})}" method="get" th:object="${updatedParameters.setAllAttributes(user.getId(), user.getName(), user.getSurname(), user.getAge(), user.getEmail())}">
+                <td th:text="${user.id}"></td>
+                <td><input class="element" disabled type="text" size="4" placeholder="Name" th:field="${updatedParameters.name}"></td>
+                <td><input class="element" disabled type="text" size="4" placeholder="Surname" th:field="${updatedParameters.surname}"></td>
+                <td><input class="element" disabled type="text" size="1" placeholder="Age" th:field="${updatedParameters.age}"></td>
+                <td><input class="element" disabled type="text" size="24" placeholder="E-mail" th:field="${updatedParameters.email}"></td>
+                <td><input class="element" disabled name="input" type="submit" value="Update"></td>
+            </form>
+            <td>
+                <form th:method="delete" th:action="@{/users/{id} (id=${user.getId()})}">
+                    <input type="submit" value="Delete">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

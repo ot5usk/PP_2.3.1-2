@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .refresh {
+            margin-top: 111px;
+            margin-bottom: 15px;
+        }
+    </style>
+    <title>List of users</title>
+</head>
+<body>
+
+<div align="center">
+    <form th:action="@{/users/list}" method="get">
+        <div class="refresh">
+            <input type="submit" value="Refresh">
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${list}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.surname}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.email}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
