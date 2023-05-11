@@ -1,12 +1,12 @@
 package ru.voblikov.dao;
 
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Component;
 import ru.voblikov.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Controller
+@Component
 public class UserDaoImpl implements UserDao {
 
     private static int USER_ID;

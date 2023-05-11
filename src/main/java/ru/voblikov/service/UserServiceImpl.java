@@ -1,43 +1,47 @@
 package ru.voblikov.service;
 
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.voblikov.dao.UserDao;
 import ru.voblikov.model.User;
+import ru.voblikov.repository.UserRepository;
 
 import java.util.List;
 
-@Controller
+@Component
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserDao userDao;
+    private final UserRepository userRepository;
 
-    public UserServiceImpl(UserDao userDao) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserDao userDao, UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return userRepository.getAllUsers();
     }
 
     @Override
     public void createUser(User user) {
-        userDao.createUser(user);
+        userRepository.createUser(user);
     }
 
     @Override
     public void updateUser(User updatedParameters) {
-        userDao.updateUser(updatedParameters);
+        userRepository.updateUser(updatedParameters);
     }
 
     @Override
     public void deleteUser(int id) {
-        userDao.deleteUser(id);
+        userRepository.deleteUser(id);
     }
 
     @Override
     public User getUser(int id) {
-        return userDao.getUser(id);
+        return userRepository.getUser(id);
     }
 }
