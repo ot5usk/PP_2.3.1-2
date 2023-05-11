@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
+import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
@@ -33,6 +34,7 @@ public class DbConfig {
         em.setDataSource(dataSource());
         em.setPackagesToScan("ru.voblikov.model");
         em.setJpaVendorAdapter(vendorAdapter);
+        em.setJpaProperties(additionalProperties());
         return em;
     }
 
@@ -51,6 +53,14 @@ public class DbConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(entityManagerFactory);
         return transactionManager;
+    }
+
+    Properties additionalProperties() {
+        Properties properties = new Properties();
+        properties.setProperty("hibernate.hbm2ddl.auto", "validate");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+
+        return properties;
     }
 
 }
