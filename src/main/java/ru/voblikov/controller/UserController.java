@@ -2,9 +2,12 @@ package ru.voblikov.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.voblikov.model.User;
 import ru.voblikov.service.UserService;
+
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/users")
@@ -26,13 +29,20 @@ public class UserController {
     }
 
     @PostMapping
-    public String createUser(@ModelAttribute("newUser") User user) {
+    public String createUser(@ModelAttribute("newUser") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/error";
+        }
         userService.createUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}")
-    public String updateUser(@PathVariable("id") int id, @ModelAttribute("updatedParameters") User updatedParameters) {
+    public String updateUser(@PathVariable("id") int id, @ModelAttribute("updatedParameters") @Valid User updatedParameters,
+                             BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "/error";
+        }
         updatedParameters.setId(id);
         userService.updateUser(updatedParameters);
         return "redirect:/users";

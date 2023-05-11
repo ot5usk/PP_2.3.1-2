@@ -30,8 +30,8 @@
         <tbody>
         <tr>
             <td><input id="add" onclick="createNewUser()" type="submit" value="Add new"></td>
-            <form th:action="@{/users}" th:method="post" th:object="${newUser}">
-                <td><input disabled th:id="name" type="text" placeholder="Name" size="4" th:field="*{name}" ></td>
+            <form name="" th:action="@{/users}" th:method="post" th:object="${newUser}">
+                <td><input disabled th:id="name" type="text" placeholder="Name" size="4" th:field="*{name}"></td>
                 <td><input disabled th:id="surname" type="text" placeholder="Surname" size="4" th:field="*{surname}"></td>
                 <td><input disabled th:id="age" type="text" placeholder="Age" size="1" th:field="*{age}"></td>
                 <td><input disabled th:id="email" type="text" placeholder="E-mail" size="25" th:field="*{email}"></td>
@@ -62,6 +62,7 @@
     </table>
 </div>
 <div class="list" align="center" >
+
     <table>
         <tbody>
         <tr th:each="user: ${listUsers}">

@@ -1,11 +1,23 @@
 package ru.voblikov.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 public class User {
     //SET VALIDATION
     private int id;
+    @NotEmpty(message = "Name should not be empty")
+    @Size(min = 2, max = 32, message = "Name should be between 2 and 32 characters")
     private String name;
+    @NotEmpty(message = "Surname should not be empty")
+    @Size(min = 2, max = 64, message = "Surname should be between 2 and 64 characters")
     private String surname;
+    @Min(value = 1, message = "Age should be greater than 0 less than 127")
     private byte age;
+    @NotEmpty(message = "E-mail should not be empty")
+    @Email(message = "E-mail should be valid")
     private String email;
 
     public User() {
