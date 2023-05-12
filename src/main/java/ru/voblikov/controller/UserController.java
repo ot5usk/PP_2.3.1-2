@@ -37,14 +37,13 @@ public class UserController {
         return "redirect:/users";
     }
 
-    @GetMapping("/{id}")
+    @PatchMapping("/{id}")
     public String updateUser(@PathVariable("id") int id, @ModelAttribute("updatedParameters") @Valid User updatedParameters,
                              BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "/error";
         }
-        updatedParameters.setId(id);
-        userService.updateUser(updatedParameters);
+        userService.updateUser(id, updatedParameters);
         return "redirect:/users";
     }
 

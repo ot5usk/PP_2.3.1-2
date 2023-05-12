@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta th:http-equiv="content-language" th:content="ru" />
     <script type="text/javascript" src="script.js"></script>
 
     <title>Users</title>
@@ -66,7 +67,7 @@
     <table>
         <tbody>
         <tr th:each="user: ${listUsers}">
-            <form th:action="@{/users/{id} (id=${user.getId()})}" method="get" th:object="${updatedParameters.setAllAttributes(user.getId(), user.getName(), user.getSurname(), user.getAge(), user.getEmail())}">
+            <form th:action="@{/users/{id} (id=${user.getId()})}" method="patch" th:object="${updatedParameters.setAllAttributes(user.getId(), user.getName(), user.getSurname(), user.getAge(), user.getEmail())}">
                 <td th:text="${user.id}"></td>
                 <td><input class="element" disabled type="text" size="4" placeholder="Name" th:field="${updatedParameters.name}"></td>
                 <td><input class="element" disabled type="text" size="4" placeholder="Surname" th:field="${updatedParameters.surname}"></td>
